@@ -13,15 +13,15 @@ namespace LoadTest
         public ManualResetEvent runCompleteEvent = new ManualResetEvent(false);
 
         private static CancellationTokenSource tokenSource = new CancellationTokenSource();
-        private static string endpoint = "";
-        private static int workers = 100;
+        private static string ENDPOINT = "";
+        private static int WORKERS = 15;
 
         static void Main(string[] args)
         {
             try
             {
                 // Start making requests
-                var driver = new TestClientsDriver(workers);
+                var driver = new TestClientsDriver(WORKERS);
                 var token = tokenSource.Token;
                 Task.Factory.StartNew(() => driver.Run(token));
                 Task.Factory.StartNew(() => driver.WaitForEnter(tokenSource));
@@ -91,7 +91,7 @@ namespace LoadTest
                     try
                     {
                         // Do a query
-                        var query = $"{endpoint}?pageId={rnd.Next(0, 2)}";
+                        var query = $"{ENDPOINT}?pageId={rnd.Next(0, 2)}";
                         Console.WriteLine($"Client {clientName}: request to {query}");
                         var data = await client.GetStringAsync(query);
                     }
