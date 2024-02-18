@@ -94,6 +94,7 @@ namespace LoadTest
                         var query = $"{ENDPOINT}?pageId={rnd.Next(0, 2)}";
                         Console.WriteLine($"Client {clientName}: request to {query}");
                         var data = await client.GetStringAsync(query);
+                        await Task.Delay(1000);
                     }
                     catch (Exception e)
                     {
